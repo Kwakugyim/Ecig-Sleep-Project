@@ -1,0 +1,30 @@
+/* Unadjusted logistic regression */
+proc surveylogistic data = a;
+    class Ecig (ref = "0") / param = ref;
+    model IS(event = "1") = Ecig;
+    strata _STATE;
+    cluster _PSU;
+    weight finalwgt;
+    title1 "Unadjusted model – E-cigarette use predicting inadequate sleep";
+run;
+
+/* Adjusted logistic regression */
+proc surveylogistic data = a;
+    class agecat(ref = '0') 
+          checkup(ref = '1') 
+          Drinking(ref = '0') 
+          Education(ref = '0') 
+          Employment(ref = '1') 
+          Ethnicity(ref = '0') 
+          GHealth(ref = '2') 
+          Marriage(ref = '1') 
+          Sex(ref = '1') 
+          Ecig(ref = '0') 
+          / param = ref;
+
+    model IS(event = "1") = Ecig agecat checkup Drinking Education Employment Ethnicity GHealth Marriage Sex;
+    strata _STATE;
+    cluster _PSU;
+    weight finalwgt;
+    title1 "Adjusted model – Ecigarette use and predictors of inadequate sleep";
+run;

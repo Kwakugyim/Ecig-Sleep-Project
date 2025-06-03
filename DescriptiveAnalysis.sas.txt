@@ -1,0 +1,38 @@
+/* Frequencies of IS and Ecig */
+proc freq data = a;
+    table IS Ecig;
+run;
+
+/* Overall descriptive analysis */
+proc surveyfreq data = a;
+    table agecat checkup Drinking Education Employment Ethnicity GHealth IS Marriage Sex / cl;
+    strata _state;
+    cluster _PSU;
+    weight finalwgt;
+run;
+
+/* Stratified by Ecig = 1 */
+data b;
+    set a;
+    if Ecig = 1;
+run;
+
+proc surveyfreq data = b;
+    table agecat checkup Drinking Education Employment Ethnicity GHealth IS Marriage Sex / cl;
+    strata _state;
+    cluster _PSU;
+    weight finalwgt;
+run;
+
+/* Stratified by Ecig = 0 */
+data c;
+    set a;
+    if Ecig = 0;
+run;
+
+proc surveyfreq data = c;
+    table agecat checkup Drinking Education Employment Ethnicity GHealth IS Marriage Sex / cl;
+    strata _state;
+    cluster _PSU;
+    weight finalwgt;
+run;
