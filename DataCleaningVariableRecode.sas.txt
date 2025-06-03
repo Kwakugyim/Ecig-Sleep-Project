@@ -1,4 +1,4 @@
-libname mydata "/home/u63614978/ClassProject";
+libname mydata "/home/u63614978/EcigProject";
 
 data a;
     set mydata.parsnskg;
