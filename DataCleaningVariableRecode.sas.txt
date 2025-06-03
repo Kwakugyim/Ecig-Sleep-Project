@@ -1,0 +1,19 @@
+libname mydata "/home/u63614978/ClassProject";
+
+data a;
+    set mydata.parsnskg;
+run;
+data a;
+    set a;
+
+    if inadequatesleep lt 7 then IS = 1; /* Yes */
+    else if inadequatesleep ge 7 then IS = 0; /* No */
+
+    if Ecigarette in (1, 2, 3) then Ecig = 1; /* Yes */
+    else if Ecigarette = 4 then Ecig = 0; /* No */
+
+    if AgeGROUP in (1, 2, 3, 4) then agecat = 0;
+    else if AgeGROUP in (5, 6, 7, 8) then agecat = 1;
+    else if AgeGROUP in (9, 10, 11, 12) then agecat = 2;
+    else agecat = .;
+run;
